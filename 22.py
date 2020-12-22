@@ -31,7 +31,9 @@ def dump_state(q1, q2):
     return ','.join(map(str, q1)) + '-' + ','.join(map(str, q2))
 
 
-def play2(q1, q2):
+def play2(q1, q2, need_score=False):
+    if not need_score and max(q1) > max(q2):
+        return 1, 0
     cache = set()
     while q1 and q2:
         state = dump_state(q1, q2)
@@ -55,5 +57,5 @@ def play2(q1, q2):
 
 
 def part2(data):
-    _, ans = play2(*parse_decks(data))
+    _, ans = play2(*parse_decks(data), need_score=True)
     return ans
